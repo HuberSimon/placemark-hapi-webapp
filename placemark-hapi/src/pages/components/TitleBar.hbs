@@ -1,0 +1,23 @@
+<div class="box has-text-centered columns m-2">
+  <div class="column">
+    <img src="/images/trees.png" width="100" alt="Tree Logo"/>
+    {{#if user}}
+      <div class="is-size-7">{{user.firstName}} {{user.lastName}}</div>
+    {{else}}
+      <div class="is-size-7">AllAboutPlaces-Hapi 0.1</div>
+    {{/if}}
+  </div>
+  <div class="column">
+    <div class="title is-3"> {{title}} </div>
+    <div class="subtitle is-6"> {{subTitle}} </div>
+  </div>
+  {{#if user}}
+    <div class="column">
+      {{> MainNavigator }}
+    </div>
+  {{else}}
+    <div class="column">
+      {{> WelcomeNavigator }}
+    </div>
+  {{/if}}
+</div>

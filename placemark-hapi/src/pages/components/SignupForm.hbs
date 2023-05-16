@@ -1,0 +1,25 @@
+<form action="/register" method="POST">
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <label for="firstname" class="label">First Name</label>
+        <input class="input" id="firstname" type="text" placeholder="Enter first name" name="firstName">
+      </div>
+      <div class="field">
+        <label for="lastname" class="label">Last Name </label>
+        <input class="input" id="lastname" type="text" placeholder="Enter last name" name="lastName">
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label for="email" class="label">Email</label>
+    <input class="input" id="email" type="text" placeholder="Enter email" name="email">
+  </div>
+  <div class="field">
+    <label for="password" class="label">Password</label>
+    <input class="input" id="password"type="password" placeholder="Enter Password" name="password">
+  </div>
+  <div class="field is-grouped">
+    <button class="button is-link">Sign Up</button>
+  </div>
+</form>
