@@ -14,7 +14,11 @@ export const placemarksMemStore = {
   },
 
   async getPlacemarkById(id) {
-    return placemarks.find((placemark) => placemark._id === id);
+    const list = placemarks.find((placemark) => placemark._id === id);
+    if (list) {
+      return list;
+    }
+    return null;
   },
 
   async getUserPlacemarks(userid) {
@@ -23,10 +27,21 @@ export const placemarksMemStore = {
 
   async deletePlacemarkById(id) {
     const index = placemarks.findIndex((placemark) => placemark._id === id);
-    placemarks.splice(index, 1);
+    if (index !== -1) placemarks.splice(index, 1);
   },
 
   async deleteAllPlacemarks() {
     placemarks = [];
+  },
+
+  async updatePlacemarkDetails(placemarkDetails) {
+    const index = placemarks.findIndex((placemark) => placemark._id === placemarkDetails.placemarkid);
+    if (placemarkDetails.category !== "") placemarks[index].category =  placemarkDetails.category;
+    if (placemarkDetails.description !== "") placemarks[index].description =  placemarkDetails.description;
+    if (placemarkDetails.analytics !== "") placemarks[index].analytics =  placemarkDetails.analytics;
+    if (placemarkDetails.location !== "") placemarks[index].location =  placemarkDetails.location;
+    if (placemarkDetails.weather !== "") placemarks[index].weather =  placemarkDetails.weather;
+    if (placemarkDetails.images !== "") placemarks[index].images =  placemarkDetails.images;
+    return placemarkDetails;
   },
 };

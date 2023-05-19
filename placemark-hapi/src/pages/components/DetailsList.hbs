@@ -1,0 +1,56 @@
+<form action="/placemarks/{{placemark._id}}/updatedetails" method="POST">
+  <div class="box mt-5">
+    <div class="pb-2 columns">
+      <div class="column is-size-3">{{ placemark.name }}</div>
+      <div class="columns is-pulled-right pr-4">
+        <div class="column">
+          <button class="button is-link fas fa-save"></button>
+        </div>
+      </div>
+    </div>
+    <div class="box box-link-hover-shadow">
+      <div class="columns">
+          <div class="column">Category: </div>
+          <div class="column">{{placemark.category}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Category" name="category">
+          </div>
+      </div>
+      <div class="columns">
+          <div class="column">Description: </div>
+          <div class="column">{{placemark.description}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Description" name="description">
+          </div>
+      </div>
+      <div class="columns">
+          <div class="column">Analytics: </div>
+          <div class="column">{{placemark.analytics}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Analytics" name="analytics">
+          </div>
+      </div>
+      <div class="columns">
+          <div class="column">Location: </div>
+          <div class="column">{{placemark.location}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Location" name="location">
+          </div>
+      </div>
+      <div class="columns">
+          <div class="column">Weather: </div>
+          <div class="column">{{placemark.weather}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Weather" name="weather">
+          </div>
+      </div>
+      <div class="columns">
+          <div class="column">Images: </div>
+          <div class="column">{{placemark.images}}</div>
+          <div class="field column">
+            <input class="input" type="text" placeholder="Enter Images" name="images">
+          </div>
+      </div>
+    </div> 
+  </div>
+</form>

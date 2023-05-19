@@ -1,12 +1,18 @@
-<div class="box m-2">
-    <div>
-        <h1>List all your favorites forests:</h1>
+<div class="box mt-6">
+    <div class="pb-2">
+        <h1>List all your favorite forests:</h1>
     </div>
   {{#each placemarks}}
-    <div class="box box-link-hover-shadow">
-      <h2 class="">
+    <div class="box box-link-hover-shadow columns">
+      <div class="column"></div>
+      <a href="/placemarks/{{_id}}" class="is-size-3 column">
         {{name}}
-      </h2>
+      </a>
+      <div class="column">
+        <a href="/placemarks/deleteplacemark/{{_id}}" class="button is-rounded is-pulled-right">
+          <i class="fas fa-trash"></i>
+        </a>
+      </div>
     </div>
   {{/each}}
 </div>

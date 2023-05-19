@@ -3,11 +3,18 @@
 </div>
 
 <div class="columns">
+  {{#if placemark }}
   <div class="column has-text-centered">
-    <img width="300" src="images/sign-post.png"/>
+    <div>{{> DetailsList }}</div>
   </div>
-  <div class="column box has-text-centered">
-    <h1 class="title is-4">Give Generously!</h1>
+  {{else }}
+  <div class="column has-text-centered">
+    <img width="300" src="images/sign-post.png" style="border-radius: 50%"/>
+  </div>
+  {{/if }}
+  
+  <div class="column box mt-6 has-text-centered">
+    <h1 class="title is-4">Start Listing!</h1>
     <div>{{> PlacemarksForm }}</div>
     <div>{{> PlacemarksList }}</div>
   </div>

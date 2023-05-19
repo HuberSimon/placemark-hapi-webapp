@@ -20,15 +20,19 @@
     "@hapi/vision": "^7.0.1",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
+    "joi": "^17.9.2",
+    "lowdb": "^6.0.1",
     "mais-mongoose-seeder": "^1.0.7",
     "mongoose": "^6.8.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8"
   }
