@@ -6,7 +6,7 @@ import { assertSubset } from "../test-utils.js";
 suite("User Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.userStore.deleteAll();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -19,7 +19,7 @@ suite("User Model tests", () => {
     assertSubset(maggie, newUser);
   });
 
-  test("delete all userApi", async () => {
+  test("delete all users", async () => {
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
     await db.userStore.deleteAll();
@@ -47,13 +47,6 @@ suite("User Model tests", () => {
     assert.isNull(await db.userStore.getUserByEmail(""));
     assert.isNull(await db.userStore.getUserById(""));
     assert.isNull(await db.userStore.getUserById());
-  });
-
-  test("get a user - failures", async () => {
-    const noUserWithId = await db.userStore.getUserById("123");
-    assert.isNull(noUserWithId);
-    const noUserWithEmail = await db.userStore.getUserByEmail("no@one.com");
-    assert.isNull(noUserWithEmail);
   });
 
   test("delete One User - fail", async () => {

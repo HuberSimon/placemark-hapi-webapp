@@ -1,4 +1,5 @@
 import { assert } from "chai";
+import { EventEmitter } from "events";
 import { db } from "../../src/models/db.js";
 import { testPlacemark, blackForest } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
@@ -6,7 +7,7 @@ import { assertSubset } from "../test-utils.js";
 suite("Placemark Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.placemarksStore.deleteAllPlacemarks();
     for (let i = 0; i < testPlacemark.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -54,3 +55,5 @@ suite("Placemark Model tests", () => {
     assert.equal(testPlacemark.length, allPlacemarks.length);
   });
 });
+
+EventEmitter.setMaxListeners(25);

@@ -2,26 +2,15 @@
   "placemarks": [
     {
       "name": "Black Forest",
-      "_id": "eecd47b0-0641-4a97-bc50-18ddf575c939"
+      "_id": "558d5ebd-2165-467e-8d6d-6f593551807c"
     },
     {
       "name": "Amazonas",
-      "_id": "bf0c7fa3-8b8b-447e-bfcd-707b181d3919"
+      "_id": "bf7fb59c-0a33-4858-aead-957cfe514f6c"
     },
     {
       "name": "Taiga",
-      "_id": "0ffb6391-3238-4e5c-97ba-7973100509a5"
-    },
-    {
-      "userid": "f26bdb0b-5d87-46d8-b76e-bba4d7cf58fd",
-      "name": "Amazonas",
-      "category": null,
-      "description": null,
-      "analytics": null,
-      "location": null,
-      "weather": null,
-      "images": null,
-      "_id": "9233e4bc-4d01-4cd9-ac40-6f5c25d2ecd1"
+      "_id": "a1b7cc22-1f5d-4165-ac8f-d2198e646622"
     }
   ]
 }

@@ -36,8 +36,8 @@ export const placemarksController = {
             weather: null,
             images: null,
           };
-          await db.placemarksStore.addPlacemark(newPlacemark);
-          const placemark = await db.placemarksStore.getPlacemarkById(newPlacemark._id);
+          const addedPlacemark = await db.placemarksStore.addPlacemark(newPlacemark);
+          const placemark = await db.placemarksStore.getPlacemarkById(addedPlacemark._id);
           return h.redirect(`/placemarks/${placemark._id}`);
       },
     },
