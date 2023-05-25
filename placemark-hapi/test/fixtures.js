@@ -37,7 +37,7 @@ export const blackForest = {
   name: "Black Forest"
 };
 
-export const testPlacemark = [
+export const testPlacemarks = [
   {
     name: "Black Forest"
   },

@@ -44,4 +44,15 @@ export const placemarksMemStore = {
     if (placemarkDetails.images !== "") placemarks[index].images =  placemarkDetails.images;
     return placemarkDetails;
   },
+
+  async deletePlacemarkDetails(id) {
+    const index = db.data.placemarks.findIndex((placemark) => placemark._id === id);
+
+    db.data.placemarks[index].category = "";
+    db.data.placemarks[index].description = "";
+    db.data.placemarks[index].analytics = "";
+    db.data.placemarks[index].location = "";
+    db.data.placemarks[index].weather = "";
+    db.data.placemarks[index].images = "";
+  },
 };

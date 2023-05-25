@@ -58,4 +58,17 @@ export const placemarkJsonStore = {
     await db.write();
     return placemarkDetails;
   },
+
+  async deletePlacemarkDetails(id) {
+    await db.read();
+    const index = db.data.placemarks.findIndex((placemark) => placemark._id === id);
+
+    db.data.placemarks[index].category = "";
+    db.data.placemarks[index].description = "";
+    db.data.placemarks[index].analytics = "";
+    db.data.placemarks[index].location = "";
+    db.data.placemarks[index].weather = "";
+    db.data.placemarks[index].images = "";
+    await db.write();
+  },
 };

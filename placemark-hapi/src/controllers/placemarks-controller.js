@@ -89,5 +89,13 @@ export const placemarksController = {
           return h.redirect(`/placemarks/${placemark._id}`);
       },
     },
+    deleteDetails: {
+      handler: async function (request, h) {
+          const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
+
+          await db.placemarksStore.deletePlacemarkDetails(placemark._id);
+          return h.redirect(`/placemarks/${placemark._id}`);
+      },
+    },
   };
   

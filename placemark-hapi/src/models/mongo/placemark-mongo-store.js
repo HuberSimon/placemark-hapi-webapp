@@ -52,4 +52,16 @@ export const placemarkMongoStore = {
     await placemark.save();
     return placemarkDetails;
   },
+
+  async deletePlacemarkDetails(id) {
+    const placemark = await Placemark.findById({ _id: id });
+
+    placemark.category = "";
+    placemark.description = "";
+    placemark.analytics = "";
+    placemark.location = "";
+    placemark.weather = "";
+    placemark.images = "";
+    await placemark.save();
+  },
 };
