@@ -6,6 +6,7 @@ export const seedData = {
         lastName: "Huber",
         email: "admin.simon.huber@oth.com",
         password: "secret",
+        type: "admin"
       },
     },
   };

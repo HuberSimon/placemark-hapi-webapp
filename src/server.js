@@ -15,6 +15,7 @@ import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
 import { validate } from "./api/jwt-utils.js";
 import { greeting } from "./pages/helpers/greeting.js";
+import { isUser } from "./pages/helpers/isUser.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -76,6 +77,7 @@ async function init() {
   });
 
   Handlebars.registerHelper("greeting", greeting);
+  Handlebars.registerHelper("isUser", isUser);
 
   server.auth.strategy("session", "cookie", {
     cookie: {

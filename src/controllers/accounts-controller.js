@@ -51,7 +51,7 @@ export const accountsController = {
         return h.redirect("/login");
       }
       request.cookieAuth.set({ id: user._id });
-      if (String(email).includes("admin")){
+      if (user.type === "admin"){
         return h.redirect("/admindashboard");
       } 
       return h.redirect("/placemarks");

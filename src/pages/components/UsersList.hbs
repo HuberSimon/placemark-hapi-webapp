@@ -1,5 +1,6 @@
 <div class="box mt-6">
   {{#each users}}
+    {{#if (isUser type) }}
     <div class="box box-link-hover-shadow columns">
       <div class="column"></div>
       <p class="is-size-3 column">
@@ -11,5 +12,6 @@
         </a>
       </div>
     </div>
+    {{/if }}
   {{/each}}
 </div>
