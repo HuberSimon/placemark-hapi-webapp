@@ -1,0 +1,15 @@
+<div class="box mt-6">
+  {{#each users}}
+    <div class="box box-link-hover-shadow columns">
+      <div class="column"></div>
+      <p class="is-size-3 column">
+        {{firstName}} {{lastName}} {{email}}
+      </p>
+      <div class="column">
+        <a href="/admindashboard/deleteuser/{{_id}}" class="button is-rounded is-pulled-right">
+          <i class="fas fa-trash"></i>
+        </a>
+      </div>
+    </div>
+  {{/each}}
+</div>
