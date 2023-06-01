@@ -5,6 +5,7 @@ import { placemarkJsonStore } from "./json/placemarks-json-store.js";
 import { connectMongo } from "./mongo/connect.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
 import { placemarkMongoStore } from "./mongo/placemark-mongo-store.js";
+import { categoryMongoStore } from "./mongo/category-mongo-store.js";
 
 export const db = {
   userStore: null,
@@ -19,6 +20,7 @@ export const db = {
       case "mongo":
         this.userStore = userMongoStore;
         this.placemarksStore = placemarkMongoStore;
+        this.categoryStore = categoryMongoStore;
         connectMongo();
         break;
       default:

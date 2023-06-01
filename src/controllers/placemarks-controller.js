@@ -6,11 +6,13 @@ export const placemarksController = {
       handler: async function (request, h) {
         const loggedInUser = request.auth.credentials;
         const placemarks = await db.placemarksStore.getUserPlacemarks(loggedInUser._id);
+        const userCategories = await db.categoryStore.getUserCategories(loggedInUser._id);
         const placemark = null;
         const viewData = {
           title: "Placemarks Dashboard",
           user: loggedInUser,
           placemarks: placemarks,
+          userCategories: userCategories,
           placemark: placemark,
         };
         return h.view("Placemarks", viewData);
@@ -26,16 +28,30 @@ export const placemarksController = {
       },
       handler: async function (request, h) {
           const loggedInUser = request.auth.credentials;
+          let category = await db.categoryStore.getCategoryByName(request.payload.categoryname)
+          if (!category){
+            const newCategory ={
+              name: request.payload.categoryname,
+              count: 1,
+            }
+            const addedcategory = await db.categoryStore.addCategory(newCategory);
+            category = await db.categoryStore.getCategoryById(addedcategory._id);
+          }else{
+            await db.categoryStore.incrementCategoryById(category._id);
+          }
+          const categoryid = category._id;
+
           const newPlacemark = {
             userid: loggedInUser._id,
             name: request.payload.name,
-            category: null,
+            categoryid: categoryid,
             description: null,
             analytics: null,
             location: null,
             weather: null,
             images: null,
           };
+          
           const addedPlacemark = await db.placemarksStore.addPlacemark(newPlacemark);
           const placemark = await db.placemarksStore.getPlacemarkById(addedPlacemark._id);
           return h.redirect(`/placemarks/${placemark._id}`);
@@ -44,6 +60,7 @@ export const placemarksController = {
     deletePlacemark: {
       handler: async function (request, h) {
         const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
+        await db.categoryStore.decrementCategoryById(placemark.categoryid)
         await db.placemarksStore.deletePlacemarkById(placemark._id);
         return h.redirect("/placemarks");
       },
@@ -54,12 +71,13 @@ export const placemarksController = {
         const loggedInUser = request.auth.credentials;
         const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
         const placemarks = await db.placemarksStore.getUserPlacemarks(loggedInUser._id);
+        const userCategories = await db.categoryStore.getUserCategories(loggedInUser._id);
         const viewData = {
           title: "Placemarks Dashboard",
           user: loggedInUser,
           placemarks: placemarks,
+          userCategories: userCategories,
           placemark: placemark,
-          category: placemark.category,
           description: placemark.description,
           analytics: placemark.analytics,
           location: placemark.location,
