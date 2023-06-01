@@ -43,7 +43,6 @@ export const placemarkMongoStore = {
   async updatePlacemarkDetails(placemarkDetails) {
     const placemark = await Placemark.findById({ _id: placemarkDetails.placemarkid });
 
-    if (placemarkDetails.category !== "") placemark.category =  placemarkDetails.category;
     if (placemarkDetails.description !== "") placemark.description =  placemarkDetails.description;
     if (placemarkDetails.analytics !== "") placemark.analytics =  placemarkDetails.analytics;
     if (placemarkDetails.location !== "") placemark.location =  placemarkDetails.location;

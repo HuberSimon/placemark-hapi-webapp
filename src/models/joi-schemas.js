@@ -32,6 +32,7 @@ export const PlacemarkSpec = Joi.object()
   .keys({
     userid: IdSpec,
     name: Joi.string().required().example("Black Forest"),
+    categoryname: Joi.string().required().example("Rainforest"),
   })
   .label("Placemark");
 

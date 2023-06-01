@@ -2,17 +2,24 @@
     <div class="pb-2">
         <h1>List all your favorite forests:</h1>
     </div>
-  {{#each placemarks}}
-    <div class="box box-link-hover-shadow columns">
-      <div class="column"></div>
-      <a href="/placemarks/{{_id}}" class="is-size-3 column">
-        {{name}}
-      </a>
-      <div class="column">
-        <a href="/placemarks/deleteplacemark/{{_id}}" class="button is-rounded is-pulled-right">
-          <i class="fas fa-trash"></i>
-        </a>
-      </div>
+
+  {{#each userCategories as |userCategory| }}
+    <div class="box box-link-hover-shadow ">
+        <h1 class="pb-4 is-size-2 has-text-weight-bold has-text-left">{{userCategory.name}}</h1>
+    {{#each ../placemarks as |mark| }}
+      {{#if (eq userCategory._id mark.categoryid) }}
+        <div class="columns">
+          <a href="/placemarks/{{mark._id}}" class="is-size-4 column">
+            {{mark.name}}
+          </a>
+          <div class="column is-fixed is-one-quarter">
+            <a href="/placemarks/deleteplacemark/{{mark._id}}" class="button is-rounded is-pulled-right">
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+        </div>
+      {{/if }}
+    {{/each }}
     </div>
-  {{/each}}
+  {{/each }}
 </div>
