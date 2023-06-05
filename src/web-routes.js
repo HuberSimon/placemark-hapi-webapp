@@ -21,6 +21,7 @@ export const webRoutes = [
   { method: "POST", path: "/placemarks/{id}/updatedetails", config: placemarksController.updateDetails },
   { method: "GET", path: "/placemarks/{id}/deletedetails", config: placemarksController.deleteDetails },
 
+
   {
     method: "GET",
     path: "/{param*}",
