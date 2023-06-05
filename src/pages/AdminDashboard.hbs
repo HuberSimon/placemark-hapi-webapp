@@ -2,13 +2,14 @@
   {{> TitleBar title="All about forests" subTitle="Admin Dashboard"}}
 </div>
 
-<div class="columns">
-  <div class="column has-text-centered">
-    <img width="300" src="images/users.jpg" style="border-radius: 50%"/>
-  </div>
-  
+<div class="columns">  
   <div class="column box mt-6 has-text-centered">
+    <img width="300" src="images/users.jpg" style="border-radius: 50%"/>
     <h1 class="title is-4">Users</h1>
     <div>{{> UsersList }}</div>
+  </div>
+  <div class="column box mt-6 has-text-centered">
+    <h1 class="title is-4">Analytics Categories</h1>
+    <div>{{> Analytics }}</div>
   </div>
 </div>
