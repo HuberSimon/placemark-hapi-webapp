@@ -1,9 +1,9 @@
 import Boom from "@hapi/boom";
-import { IdSpec, PlacemarkArraySpec, PlacemarkSpec, PlacemarkSpecPlus } from "../models/joi-schemas.js";
+import { IdSpec, CategorySpec, CategoryArraySpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
 
-export const placemarkApi = {
+export const categoryApi = {
   find: {
     auth: {
       strategy: "jwt",
@@ -17,7 +17,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    response: { schema: PlacemarkArraySpec, failAction: validationError },
+    response: { schema: CategoryArraySpec, failAction: validationError },
     description: "Get all categories",
     notes: "Returns all categories",
   },
@@ -41,29 +41,7 @@ export const placemarkApi = {
     description: "Find a Category",
     notes: "Returns a category",
     validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: PlacemarkSpecPlus, failAction: validationError },
+    response: { schema: CategorySpec, failAction: validationError },
   },
 
-  create: {
-    auth: {
-      strategy: "jwt",
-    },
-    handler: async function (request, h) {
-      try {
-        const category = request.payload;
-        const newCategory = await db.categoryStore.addCategory(category);
-        if (newCategory) {
-          return h.response(newCategory).code(201);
-        }
-        return Boom.badImplementation("error creating category");
-      } catch (err) {
-        return Boom.serverUnavailable("Database Error");
-      }
-    },
-    tags: ["api"],
-    description: "Create a Category",
-    notes: "Returns the newly created category",
-    validate: { payload: PlacemarkSpec, failAction: validationError },
-    response: { schema: PlacemarkSpecPlus, failAction: validationError },
-  },
 };

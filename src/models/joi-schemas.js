@@ -6,6 +6,7 @@ export const UserCredentialsSignInSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("student@oth.de").regex(/^(?!.*admin).*$/).required(),
     password: Joi.string().example("secret").required(),
+    type: Joi.string().example("user"),
   })
   .label("UserCredentials");
 
@@ -13,6 +14,7 @@ export const UserCredentialsLogInSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("student@oth.de").required(),
     password: Joi.string().example("secret").required(),
+    type: Joi.string().example("user").required(),
   })
   .label("UserCredentials");
 
@@ -36,12 +38,30 @@ export const PlacemarkSpec = Joi.object()
   })
   .label("Placemark");
 
-export const PlacemarkSpecPlus = PlacemarkSpec.keys({
-  _id: IdSpec,
-  __v: Joi.number(),
+export const PlacemarkSpecPlus = Joi.object()
+  .keys({
+    userid: IdSpec,
+    name: Joi.string().required().example("Black Forest"),
+    categoryid: IdSpec,
+    description: Joi.string().allow(null).example("nice forest"),
+    location: Joi.string().allow(null).example("america"),
+    weather: Joi.string().allow(null).example("hot"),
+    image: Joi.string().allow(null).example("cloudinary"),
+    _id: IdSpec,
+    __v: Joi.number(),
 }).label("PlacemarkPlus");
 
 export const PlacemarkArraySpec = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");
+
+export const CategorySpec = Joi.object()
+  .keys({
+    name: Joi.string().required().example("Rainforest"),
+    count: Joi.number().required().example(2),
+    _id: IdSpec,
+    __v: Joi.number(),
+}).label("Category");
+
+export const CategoryArraySpec = Joi.array().items(CategorySpec).label("CategoryArray");
 
 export const JwtAuth = Joi.object()
   .keys({

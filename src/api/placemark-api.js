@@ -51,9 +51,33 @@ export const placemarkApi = {
     handler: async function (request, h) {
       try {
         const placemark = request.payload;
-        const newPlacemark = await db.placemarksStore.addPlacemark(placemark);
-        if (newPlacemark) {
-          return h.response(newPlacemark).code(201);
+        let category = await db.categoryStore.getCategoryByName(placemark.categoryname)
+        if (!category){
+          const newCategory ={
+            name: placemark.categoryname,
+            count: 1,
+          }
+          const addedcategory = await db.categoryStore.addCategory(newCategory);
+          category = await db.categoryStore.getCategoryById(addedcategory._id);
+        }else{
+          await db.categoryStore.incrementCategoryById(category._id);
+        }
+        const categoryid = category._id;
+
+        const newPlacemark = {
+          userid: placemark.userid,
+          name: placemark.name,
+          categoryid: categoryid,
+          description: null,
+          location: null,
+          weather: null,
+          image: null,
+        };
+        
+        const addedplacemark = await db.placemarksStore.addPlacemark(newPlacemark);
+  
+        if (addedplacemark) {
+          return h.response(addedplacemark).code(201);
         }
         return Boom.badImplementation("error creating placemark");
       } catch (err) {
@@ -67,6 +91,44 @@ export const placemarkApi = {
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const placemarkinfo = request.payload;
+        const oldplacemark = await db.placemarksStore.getPlacemarkById(request.params.id);
+
+        const newPlacemarkDetails = {
+          _id: oldplacemark._id,
+          __v: oldplacemark.__v,
+          userid: oldplacemark.userid,
+          name: oldplacemark.name,
+          categoryid: oldplacemark.categoryid,
+          description: placemarkinfo.description,
+          location: placemarkinfo.location,
+          weather: placemarkinfo.weather,
+          image: placemarkinfo.image,
+        };
+        
+        const updatedplacemark = await db.placemarksStore.updatePlacemarkDetails(newPlacemarkDetails);
+  
+        if (updatedplacemark) {
+          return h.response(updatedplacemark).code(201);
+        }
+        return Boom.badImplementation("error creating placemark");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update a Placemark",
+    notes: "Returns the updated placemark",
+    validate: { payload: PlacemarkSpecPlus, params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
+  },
+
   deleteOne: {
     auth: {
       strategy: "jwt",
@@ -77,6 +139,7 @@ export const placemarkApi = {
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");
         }
+        await db.categoryStore.decrementCategoryById(placemark.categoryid);
         await db.placemarksStore.deletePlacemarkById(placemark._id);
         return h.response().code(204);
       } catch (err) {
