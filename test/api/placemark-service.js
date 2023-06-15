@@ -51,6 +51,22 @@ export const placemarkService = {
     return res.data;
   },
 
+  async updatePlacemark(id, placemark){
+    const res = await axios.post(`${this.placemarkUrl}/api/placemarks/${id}/update`, placemark);
+    return res.data;
+  },
+
+  async getAllCategories() {
+    const res = await axios.get(`${this.placemarkUrl}/api/categories`);
+    return res.data;
+  },
+
+  async getCategory(id) {
+    const res = await axios.get(`${this.placemarkUrl}/api/categories/${id}`);
+    return res.data;
+  },
+
+
   async authenticate(user) {
     const response = await axios.post(`${this.placemarkUrl}/api/users/authenticate`, user);
     axios.defaults.headers.common.Authorization = `Bearer ${  response.data.token}`;

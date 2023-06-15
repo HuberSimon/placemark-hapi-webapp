@@ -5,10 +5,12 @@ export const adminController = {
         handler: async function (request, h) {
           const loggedInUser = request.auth.credentials;
           const users = await db.userStore.getAllUsers();
+          const categories = await db.categoryStore.getAllCategories();
           const viewData = {
             title: "Admin Dashboard",
             user: loggedInUser,
             users: users,
+            categories: categories,
           };
           return h.view("AdminDashboard", viewData);
         },

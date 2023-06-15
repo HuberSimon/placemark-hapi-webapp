@@ -35,18 +35,20 @@ export const categoryMongoStore = {
 
   async incrementCategoryById(id) {
     if (id) {
-        const category = await Category.findOne({ _id: id }).lean();
+        const category = await Category.findOne({ _id: id });
         if (category) {
             category.count += 1;
+            await category.save();
         }
     }
   },
 
   async decrementCategoryById(id) {
     if (id) {
-        const category = await Category.findOne({ _id: id }).lean();
+        const category = await Category.findOne({ _id: id });
         if (category) {
             category.count -= 1;
+            await category.save();
             if (category.count === 0){
                 await Category.deleteOne({ _id: id });
             }

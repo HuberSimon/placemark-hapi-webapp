@@ -10,10 +10,9 @@ const placemarkSchema = new Schema({
     ref: "Category",
   },
   description: String,
-  analytics: String,
   location: String,
   weather: String,
-  images: String,
+  image: String,
 });
 
 export const Placemark = Mongoose.model("Placemark", placemarkSchema);

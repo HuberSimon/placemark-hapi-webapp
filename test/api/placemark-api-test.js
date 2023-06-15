@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, blackForest, testPlacemarks } from "../fixtures.js";
+import { maggie, maggieCredentials, blackForest, testPlacemarks, blackForestDetails } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -13,11 +13,11 @@ suite("Placemark API tests", () => {
   setup(async () => {
     placemarkService.clearAuth();
     user = await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggie);
+    await placemarkService.authenticate(maggieCredentials);
     await placemarkService.deleteAllPlacemarks();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggie);
+    await placemarkService.authenticate(maggieCredentials);
     blackForest.userid = user._id;
   });
 
@@ -52,6 +52,22 @@ suite("Placemark API tests", () => {
     await placemarkService.deleteAllPlacemarks();
     returnedLists = await placemarkService.getAllPlacemarks();
     assert.equal(returnedLists.length, 0);
+  });
+
+  test("update placemark details", async () => {
+    const placemark = await placemarkService.createPlacemark(blackForest);
+    blackForestDetails._id = placemark._id;
+    blackForestDetails.__v = placemark.__v;
+    blackForestDetails.userid = placemark.userid;
+    blackForestDetails.name = placemark.name;
+    blackForestDetails.categoryid = placemark.categoryid;
+    const updatedPlacemark = await placemarkService.updatePlacemark(placemark._id, blackForestDetails);
+    assert.isNotNull(updatedPlacemark);
+    assert.notEqual(null, updatedPlacemark.description);
+    assert.notEqual(null, updatedPlacemark.image); 
+    assert.notEqual(null, updatedPlacemark.location);
+    assert.notEqual(null, updatedPlacemark.weather);
+
   });
 
   test("remove non-existant placemark", async () => {

@@ -44,23 +44,21 @@ export const placemarkMongoStore = {
     const placemark = await Placemark.findById({ _id: placemarkDetails.placemarkid });
 
     if (placemarkDetails.description !== "") placemark.description =  placemarkDetails.description;
-    if (placemarkDetails.analytics !== "") placemark.analytics =  placemarkDetails.analytics;
     if (placemarkDetails.location !== "") placemark.location =  placemarkDetails.location;
     if (placemarkDetails.weather !== "") placemark.weather =  placemarkDetails.weather;
-    if (placemarkDetails.images !== "") placemark.images =  placemarkDetails.images;
+    if (placemarkDetails.image !== "") placemark.image =  placemarkDetails.image;
     await placemark.save();
     return placemarkDetails;
   },
 
+
   async deletePlacemarkDetails(id) {
     const placemark = await Placemark.findById({ _id: id });
 
-    placemark.category = "";
     placemark.description = "";
-    placemark.analytics = "";
     placemark.location = "";
     placemark.weather = "";
-    placemark.images = "";
+    placemark.image = "";
     await placemark.save();
   },
 };

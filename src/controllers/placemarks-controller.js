@@ -1,5 +1,6 @@
 import { PlacemarkSpec, PlacemarkSpecPlus } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
 
 export const placemarksController = {
     index: {
@@ -46,10 +47,9 @@ export const placemarksController = {
             name: request.payload.name,
             categoryid: categoryid,
             description: null,
-            analytics: null,
             location: null,
             weather: null,
-            images: null,
+            image: null,
           };
           
           const addedPlacemark = await db.placemarksStore.addPlacemark(newPlacemark);
@@ -79,10 +79,8 @@ export const placemarksController = {
           userCategories: userCategories,
           placemark: placemark,
           description: placemark.description,
-          analytics: placemark.analytics,
           location: placemark.location,
           weather: placemark.weather,
-          images: placemark.images,
         };
         return h.view("Placemarks", viewData);
       },
@@ -92,25 +90,42 @@ export const placemarksController = {
           const loggedInUser = request.auth.credentials;
           const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
           const placemarkname = placemark.name;
+
           const newPlacemarkDetails = {
             userid: loggedInUser._id,
             placemarkid: request.params.id,
             name: placemarkname,
-            category: request.payload.category,
             description: request.payload.description,
-            analytics: request.payload.analytics,
             location: request.payload.location,
             weather: request.payload.weather,
-            images: request.payload.images,
+            image: null,
           };
+
+          try {
+            const file = request.payload.imagefile;
+            if (Object.keys(file).length > 0) {
+              newPlacemarkDetails.image = await imageStore.uploadImage(request.payload.imagefile);
+            }
+          } catch (err) {
+            console.log(err);
+            return h.redirect(`/placemarks/${placemark._id}`);
+          }
+
           await db.placemarksStore.updatePlacemarkDetails(newPlacemarkDetails);
           return h.redirect(`/placemarks/${placemark._id}`);
       },
+      payload: {
+        multipart: true,
+        output: "data",
+        maxBytes: 209715200,
+        parse: true,
+      },
     },
+
     deleteDetails: {
       handler: async function (request, h) {
           const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
-
+          if(placemark.image) await imageStore.deleteImage(placemark.image);
           await db.placemarksStore.deletePlacemarkDetails(placemark._id);
           return h.redirect(`/placemarks/${placemark._id}`);
       },

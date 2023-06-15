@@ -1,4 +1,4 @@
-<form action="/placemarks/{{placemark._id}}/updatedetails" method="POST">
+<form action="/placemarks/{{placemark._id}}/updatedetails" method="POST" enctype="multipart/form-data">
   <div class="box mt-5">
     <div class="pb-2 columns">
       <div class="column is-size-3">{{ placemark.name }}</div>
@@ -20,13 +20,6 @@
           </div>
       </div>
       <div class="columns">
-          <div class="column">Analytics: </div>
-          <div class="column">{{placemark.analytics}}</div>
-          <div class="field column">
-            <input class="input" type="text" placeholder="Enter Analytics" name="analytics">
-          </div>
-      </div>
-      <div class="columns">
           <div class="column">Location: </div>
           <div class="column">{{placemark.location}}</div>
           <div class="field column">
@@ -41,12 +34,42 @@
           </div>
       </div>
       <div class="columns">
-          <div class="column">Images: </div>
-          <div class="column">{{placemark.images}}</div>
-          <div class="field column">
-            <input class="input" type="text" placeholder="Enter Images" name="images">
+          <div class="card">
+          <div class="card-image">
+            <figure class="image is-256x256">
+              <img src={{placemark.image}}>
+            </figure>
           </div>
+          <div class="card-content">
+                <div id="file-select" class="file has-name is-fullwidth">
+                  <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        Choose a file…
+                      </span>
+                    </span>
+                    <span class="file-name"></span>
+                  </label>
+                </div>
+            </div>
+        </div>
       </div>
     </div> 
   </div>
 </form>
+
+
+
+
+<script>
+  const fileInput = document.querySelector(".file-input");
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector(".file-name");
+      fileName.textContent = fileInput.files[0].name;
+    }
+  };
+</script>
