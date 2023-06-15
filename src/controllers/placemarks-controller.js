@@ -125,7 +125,7 @@ export const placemarksController = {
     deleteDetails: {
       handler: async function (request, h) {
           const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
-          await imageStore.deleteImage(placemark.image);
+          if(placemark.image) await imageStore.deleteImage(placemark.image);
           await db.placemarksStore.deletePlacemarkDetails(placemark._id);
           return h.redirect(`/placemarks/${placemark._id}`);
       },
