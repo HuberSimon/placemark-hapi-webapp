@@ -100,10 +100,9 @@ export const placemarkApi = {
         const placemarkinfo = request.payload;
         const oldplacemark = await db.placemarksStore.getPlacemarkById(request.params.id);
 
-        const newPlacemarkDetails = {
-          _id: oldplacemark._id,
-          __v: oldplacemark.__v,
+        const newPlacemarkDetails = { 
           userid: oldplacemark.userid,
+          placemarkid: oldplacemark._id,
           name: oldplacemark.name,
           categoryid: oldplacemark.categoryid,
           description: placemarkinfo.description,
@@ -111,11 +110,11 @@ export const placemarkApi = {
           weather: placemarkinfo.weather,
           image: placemarkinfo.image,
         };
-        
+
         const updatedplacemark = await db.placemarksStore.updatePlacemarkDetails(newPlacemarkDetails);
-  
+        
         if (updatedplacemark) {
-          return h.response(updatedplacemark).code(201);
+          return h.response(updatedplacemark).code(200);
         }
         return Boom.badImplementation("error creating placemark");
       } catch (err) {
@@ -125,9 +124,8 @@ export const placemarkApi = {
     tags: ["api"],
     description: "Update a Placemark",
     notes: "Returns the updated placemark",
-    validate: { payload: PlacemarkSpecPlus, params: { id: IdSpec }, failAction: validationError },
-    response: { schema: PlacemarkSpecPlus, failAction: validationError },
-  },
+    validate: { params: { id: IdSpec }, failAction: validationError },
+   },
 
   deleteOne: {
     auth: {

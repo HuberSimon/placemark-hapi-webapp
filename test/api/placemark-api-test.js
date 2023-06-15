@@ -54,19 +54,19 @@ suite("Placemark API tests", () => {
     assert.equal(returnedLists.length, 0);
   });
 
-  test("update Placemark-Details", async () => {
+  test("update placemark details", async () => {
     const placemark = await placemarkService.createPlacemark(blackForest);
     blackForestDetails._id = placemark._id;
     blackForestDetails.__v = placemark.__v;
     blackForestDetails.userid = placemark.userid;
     blackForestDetails.name = placemark.name;
     blackForestDetails.categoryid = placemark.categoryid;
-    updatedplacemark = await placemarkService.updatePlacemark(placemark._id, blackForestDetails);
-    assert.isNotNull(updatedplacemark);
-    assert.notEqual(null, updatedplacemark.description);
-    assert.notEqual(null, updatedplacemark.image);
-    assert.notEqual(null, updatedplacemark.location);
-    assert.notEqual(null, updatedplacemark.weather);
+    const updatedPlacemark = await placemarkService.updatePlacemark(placemark._id, blackForestDetails);
+    assert.isNotNull(updatedPlacemark);
+    assert.notEqual(null, updatedPlacemark.description);
+    assert.notEqual(null, updatedPlacemark.image); 
+    assert.notEqual(null, updatedPlacemark.location);
+    assert.notEqual(null, updatedPlacemark.weather);
 
   });
 
