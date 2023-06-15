@@ -6,7 +6,6 @@ export const UserCredentialsSignInSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("student@oth.de").regex(/^(?!.*admin).*$/).required(),
     password: Joi.string().example("secret").required(),
-    type: Joi.string().example("user"),
   })
   .label("UserCredentials");
 
@@ -14,13 +13,13 @@ export const UserCredentialsLogInSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("student@oth.de").required(),
     password: Joi.string().example("secret").required(),
-    type: Joi.string().example("user").required(),
   })
   .label("UserCredentials");
 
 export const UserSpec = UserCredentialsSignInSpec.keys({
   firstName: Joi.string().example("Max").required(),
   lastName: Joi.string().example("Huber").required(),
+  type: Joi.string().example("user"),
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
@@ -67,6 +66,7 @@ export const JwtAuth = Joi.object()
   .keys({
     success: Joi.boolean().example("true").required(),
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+    id: IdSpec,
   })
   .label("JwtAuth");
 
