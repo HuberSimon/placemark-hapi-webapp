@@ -44,6 +44,8 @@ export const PlacemarkSpecPlus = Joi.object()
     categoryid: IdSpec,
     description: Joi.string().allow(null).example("nice forest"),
     location: Joi.string().allow(null).example("america"),
+    locLat: Joi.number().allow(null).example(49.0134),
+    locLng: Joi.number().allow(null).example(12.1016),
     weather: Joi.string().allow(null).example("hot"),
     image: Joi.string().allow(null).example("cloudinary"),
     _id: IdSpec,

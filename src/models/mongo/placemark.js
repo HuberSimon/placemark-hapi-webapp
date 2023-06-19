@@ -11,6 +11,8 @@ const placemarkSchema = new Schema({
   },
   description: String,
   location: String,
+  locLat: Number,
+  locLng: Number,
   weather: String,
   image: String,
 });
