@@ -45,6 +45,8 @@ export const placemarkMongoStore = {
 
     if (placemarkDetails.description !== "") placemark.description =  placemarkDetails.description;
     if (placemarkDetails.location !== "") placemark.location =  placemarkDetails.location;
+    if (placemarkDetails.locLat !== 0) placemark.locLat =  placemarkDetails.locLat;
+    if (placemarkDetails.locLng !== 0) placemark.locLng =  placemarkDetails.locLng;
     if (placemarkDetails.weather !== "") placemark.weather =  placemarkDetails.weather;
     if (placemarkDetails.image !== "") placemark.image =  placemarkDetails.image;
     await placemark.save();
@@ -57,6 +59,8 @@ export const placemarkMongoStore = {
 
     placemark.description = "";
     placemark.location = "";
+    placemark.locLat = 0;
+    placemark.locLng = 0;
     placemark.weather = "";
     placemark.image = "";
     await placemark.save();
