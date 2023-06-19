@@ -70,6 +70,8 @@ export const placemarkApi = {
           categoryid: categoryid,
           description: null,
           location: null,
+          locLat: null,
+          locLng: null,
           weather: null,
           image: null,
         };
@@ -107,6 +109,8 @@ export const placemarkApi = {
           categoryid: oldplacemark.categoryid,
           description: placemarkinfo.description,
           location: placemarkinfo.location,
+          locLat: placemarkinfo.locLat,
+          locLng: placemarkinfo.locLng,
           weather: placemarkinfo.weather,
           image: placemarkinfo.image,
         };
