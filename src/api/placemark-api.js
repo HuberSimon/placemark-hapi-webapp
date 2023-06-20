@@ -168,4 +168,23 @@ export const placemarkApi = {
     tags: ["api"],
     description: "Delete all PlacemarkApi",
   },
+
+  deleteDetails: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.placemarksStore.getPlacemarkById(request.params.id);
+        if(placemark.image) await imageStore.deleteImage(placemark.image);
+        await db.placemarksStore.deletePlacemarkDetails(placemark._id);      
+        return h.response().code(200);
+      } catch (err) {
+        return Boom.serverUnavailable("No Placemark with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Delete placemark Details",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
 };
